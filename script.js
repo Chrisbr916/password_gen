@@ -1,9 +1,4 @@
 // Assignment Code
-// create conatants to pull from
-const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const lower = "abcdefghijklmnopqrstuvwxyz"
-const num = "1234567890"
-const symbol = "!@#$%^&*()-=+_"
 
 
 
@@ -21,7 +16,7 @@ function writePassword() {
 
   //asks lenth of the password
     var passLenth = window.prompt("how long would you like your password to be. Please enter a number between 8 and 128","8" );
-    if (passLenth >= 8 && <= 128){
+    if (passLenth >= 8 && passLenth <= 128){
     // this gets the lenth of the password as well as pushes you into the next qiestion as long as you put in a valid number
       var includeLower = window.confirm("Would you like to include lowercase letters in your password? OK is yes" );
   }
@@ -42,6 +37,11 @@ function writePassword() {
     // this part asks if you wiuld like to include numbers
       var includeSymbol = window.confirm("Would you like to include symbols in your password? OK is yes");
   }
+
+
+
+
+
   // this chunk of code will be dedicated to functions that get random numbers etters and symbols
   function getRandomLowercase(){
     //this function picks a random decimil and multiplies it by 26.(since there are 26 letters in alphabet) and then adds 97 becasue thats how computers read numbers the numbers are ecah assigned a value and the nowecase start at 97 
@@ -65,7 +65,7 @@ function writePassword() {
 
 
 
-  }
+  
 
   //this creates an object that holds all of the ossible options for creating a password
 var getRandom ={
@@ -75,19 +75,42 @@ var getRandom ={
   symbol = getRandomSymbols,
 };
 
+var newPassword = "";
 
-   
+// this var is for knowing what has been included 
+var whatInculded = includeLower + includeUpper + includeNumbers + includeSymbol;
 
+//this array checks if the prompts have been selected by running it against true if it is false it will be removed
+var passwordArray = [{ includeUpper }, { includeUpper }, { includeNumbers }, { includeSymbol }].filter(item => Object.values(item)[0]);
+
+//this if statement mkes sure that at least one of the prompts have been selected, and if they have not will create a message telling the they need to pick one 
+if(whatInculded === 0) {
+  return window.alert("if you want this to work you need to selected one.")
+};
+  //this loop cycles through the lenth of whatever the user has choosen
+for (var i = 0; i < passLenth; i+= whatInculded) {
+  passwordArray.forEach(type=> {
+    var choosenTypes = Object.keys(type)[0];
+      newPassword += getRandom[choosenTypes]();
+      
+      
+  });
+};
+
+  return newPassword;
+
+
+}
 
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
+
+
 }
 
 
-
-document.getElementById
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
