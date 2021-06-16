@@ -68,11 +68,12 @@ function writePassword() {
   
 
   //this creates an object that holds all of the ossible options for creating a password
+  // the way that this is stored is incorrect 
 var getRandom ={
-  lower = getRandomLowercase,
-  upper = getRandomUppercase,
-  number = getRandomNumber,
-  symbol = getRandomSymbols,
+  lower: getRandomLowercase,
+  upper: getRandomUppercase,
+  number: getRandomNumber,
+  symbol: getRandomSymbols
 };
 
 var newPassword = "";
@@ -91,6 +92,7 @@ if(whatInculded === 0) {
 for (var i = 0; i < passLenth; i+= whatInculded) {
   passwordArray.forEach(type=> {
     var choosenTypes = Object.keys(type)[0];
+    
       newPassword += getRandom[choosenTypes]();
       
       
